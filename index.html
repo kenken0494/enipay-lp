@@ -3,868 +3,419 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Visa正規メンバー・香港拠点のブロックチェーン決済サービスENIPAY。田舎サラリーマンがリアルに検証中。">
-<meta name="og:title" content="ENIPAYを田舎から検証してみた｜リアルな記録">
-<meta name="og:description" content="Visa正規メンバー・香港拠点のブロックチェーン決済サービスENIPAY。田舎サラリーマンがリアルに検証中。">
-<meta name="og:type" content="website">
-<title>ENIPAYを田舎から検証してみた｜リアルな記録</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>ENIPAY｜Web3時代の新しい決済インフラ</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0f0d;
+  --bg2:#0f1a15;
+  --bg3:#162420;
+  --card:#12201a;
+  --border:rgba(0,232,123,0.12);
+  --green:#00e87b;
+  --green2:#00c968;
+  --green-glow:rgba(0,232,123,0.15);
+  --green-glow2:rgba(0,232,123,0.06);
+  --white:#f0f5f2;
+  --gray:#a8b8b0;
+  --gray2:#707e78;
+  --red:#ff6b6b;
+  --orange:#ffaa5c;
+  --font:'Noto Sans JP','Inter',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:var(--font);line-height:1.8;-webkit-font-smoothing:antialiased;}
 
-:root {
-  --bg: #1a2e24;
-  --bg2: #213828;
-  --bg3: #2a4233;
-  --green: #00e87b;
-  --green-dim: rgba(0,232,123,0.12);
-  --blue: #3b82f6;
-  --white: #ffffff;
-  --gray: #d0d0dd;
-  --gray2: #a0a0b5;
-  --red: #ef4444;
-  --font: 'Noto Sans JP', 'Inter', sans-serif;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,15,13,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-logo{font-weight:900;font-size:20px;letter-spacing:2px;display:flex;align-items:center;gap:8px;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:13px;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--green);color:#000;padding:8px 20px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;}
 
-html { scroll-behavior: smooth; }
+/* CONTAINER */
+.container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.section{padding:100px 0;}
+.section-eyebrow{font-size:13px;color:var(--green);font-weight:600;letter-spacing:2px;margin-bottom:12px;text-align:center;}
+.section-title{font-size:clamp(24px,4vw,36px);font-weight:900;text-align:center;margin-bottom:16px;line-height:1.4;}
+.section-sub{font-size:15px;color:var(--gray);text-align:center;max-width:600px;margin:0 auto 48px;}
 
-body {
-  background: linear-gradient(180deg, #1a2e24 0%, #162518 100%);
-  color: var(--white);
-  font-family: var(--font);
-  line-height: 1.8;
-  -webkit-font-smoothing: antialiased;
-}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px;}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(0,232,123,0.08) 0%,transparent 60%);pointer-events:none;}
+.hero-content{position:relative;z-index:1;max-width:600px;}
+.hero-badge{display:inline-block;color:var(--green);font-size:14px;font-weight:700;letter-spacing:3px;margin-bottom:20px;}
+.hero h1{font-size:clamp(32px,6vw,52px);font-weight:900;line-height:1.3;margin-bottom:20px;}
+.hero h1 .accent{color:var(--green);position:relative;}
+.hero h1 .accent::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--green);border-radius:2px;}
+.hero-desc{font-size:16px;color:var(--gray);margin-bottom:36px;max-width:480px;}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#000;font-weight:700;font-size:15px;padding:14px 28px;border-radius:12px;text-decoration:none;transition:transform 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--white);font-weight:600;font-size:14px;text-decoration:none;padding:14px 20px;}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);text-align:center;color:var(--gray2);font-size:12px;}
+.hero-scroll::after{content:'↓';display:block;font-size:20px;margin-top:4px;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
 
-/* ===== UTILITY ===== */
-.container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-.section { padding: 80px 0; }
-.section-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 12px;
-}
-.section-title {
-  font-size: clamp(24px, 5vw, 36px);
-  font-weight: 900;
-  line-height: 1.4;
-  margin-bottom: 24px;
-}
-.section-desc {
-  font-size: 16px;
-  color: var(--gray);
-  margin-bottom: 40px;
-}
+/* HERO VISUAL */
+.hero-visual{position:absolute;right:0;top:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+.hero-visual img{width:100%;height:100%;object-fit:cover;}
 
-/* ===== FLOATING CTA ===== */
-.float-cta {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  background: var(--green);
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 14px 32px;
-  border-radius: 50px;
-  box-shadow: 0 4px 24px rgba(0,232,123,0.3);
-  transition: transform 0.2s;
-}
-.float-cta:hover { transform: translateX(-50%) scale(1.05); }
+/* CARDS */
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;transition:transform 0.2s,border-color 0.2s;}
+.card:hover{transform:translateY(-4px);border-color:rgba(0,232,123,0.3);}
+.card-icon{width:56px;height:56px;margin:0 auto 16px;border-radius:14px;background:var(--green-glow);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.card-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.card-desc{font-size:13px;color:var(--gray);line-height:1.7;}
 
-/* ===== HERO ===== */
-.hero {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -30%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0,232,123,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-eyebrow {
-  display: inline-block;
-  background: var(--green-dim);
-  color: var(--green);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  letter-spacing: 1px;
-}
-.hero-title {
-  font-size: clamp(28px, 6vw, 48px);
-  font-weight: 900;
-  line-height: 1.35;
-  margin-bottom: 24px;
-}
-.hero-title span { color: var(--green); }
-.hero-sub {
-  font-size: 17px;
-  color: var(--gray);
-  margin-bottom: 40px;
-  max-width: 560px;
-}
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--green);
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 16px 36px;
-  border-radius: 50px;
-  transition: transform 0.2s;
-}
-.hero-cta:hover { transform: scale(1.05); }
+/* ICON CARDS (horizontal) */
+.hcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;align-items:flex-start;gap:16px;transition:transform 0.2s;}
+.hcard:hover{transform:translateY(-2px);}
+.hcard-icon{flex-shrink:0;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.hcard-icon.red{background:rgba(255,107,107,0.12);color:var(--red);}
+.hcard-icon.green{background:var(--green-glow);color:var(--green);}
+.hcard-icon.orange{background:rgba(255,170,92,0.12);color:var(--orange);}
+.hcards{display:flex;flex-direction:column;gap:16px;}
 
-/* ===== TRUST BAR ===== */
-.trust-bar {
-  background: var(--bg2);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  padding: 32px 0;
-  overflow: hidden;
-}
-.trust-label {
-  text-align: center;
-  font-size: 12px;
-  color: var(--gray2);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.marquee-wrap {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-.marquee-wrap::before,
-.marquee-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  z-index: 2;
-  pointer-events: none;
-}
-.marquee-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg2), transparent);
-}
-.marquee-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg2), transparent);
-}
-.marquee-track {
-  display: flex;
-  gap: 40px;
-  animation: marquee 20s linear infinite;
-  width: max-content;
-}
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.trust-logo {
-  background: var(--bg3);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 12px;
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 56px;
-  flex-shrink: 0;
-  gap: 8px;
-}
-.trust-logo svg { height: 24px; flex-shrink: 0; }
+/* TIMELINE */
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--green),rgba(0,232,123,0.2));}
+.timeline-item{position:relative;margin-bottom:40px;}
+.timeline-dot{position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(0,232,123,0.4);}
+.timeline-step{font-size:12px;font-weight:700;color:var(--green);letter-spacing:2px;margin-bottom:4px;}
+.timeline-title{font-size:20px;font-weight:900;margin-bottom:8px;}
+.timeline-desc{font-size:14px;color:var(--gray);}
 
-/* ===== TRUST FACTS ===== */
-.facts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-.fact-card {
-  background: var(--bg2);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  padding: 28px 24px;
-}
-.fact-icon {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-.fact-title {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--white);
-}
-.fact-desc {
-  font-size: 14px;
-  color: var(--gray);
-  line-height: 1.7;
-}
-.fact-highlight {
-  color: var(--green);
-  font-weight: 700;
-}
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
 
-/* ===== FEATURES ===== */
-.features-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: var(--bg2);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  padding: 24px;
-}
-.feature-icon {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  background: var(--green-dim);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-.feature-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.feature-desc {
-  font-size: 14px;
-  color: var(--gray);
-}
+/* POSSIBILITY CARDS */
+.poss-card{display:flex;gap:20px;align-items:flex-start;margin-bottom:28px;}
+.poss-img{width:80px;height:80px;border-radius:12px;background:var(--green-glow);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
+.poss-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.poss-desc{font-size:13px;color:var(--gray);line-height:1.7;}
 
-/* ===== GLOBAL ===== */
-.global-flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin: 40px 0;
-  flex-wrap: wrap;
-}
-.global-node {
-  text-align: center;
-  padding: 20px 24px;
-}
-.global-flag {
-  font-size: 40px;
-  margin-bottom: 8px;
-}
-.global-country {
-  font-size: 15px;
-  font-weight: 700;
-}
-.global-status {
-  font-size: 12px;
-  color: var(--gray);
-  margin-top: 4px;
-}
-.global-status.new {
-  color: var(--green);
-  font-weight: 700;
-}
-.global-arrow {
-  font-size: 24px;
-  color: var(--gray2);
-}
-.global-note {
-  background: var(--bg2);
-  border-left: 3px solid var(--green);
-  border-radius: 0 12px 12px 0;
-  padding: 20px 24px;
-  margin-top: 32px;
-}
-.global-note p {
-  font-size: 15px;
-  color: var(--gray);
-  line-height: 1.8;
-}
-.global-note strong {
-  color: var(--white);
-}
+/* LOG SECTION */
+.log-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.log-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;}
+.log-card-icon{width:44px;height:44px;margin:0 auto 12px;border-radius:10px;background:var(--green-glow);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--green);}
+.log-card-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.log-card-desc{font-size:12px;color:var(--gray);}
 
-/* ===== WEBX ===== */
-.webx-banner {
-  background: linear-gradient(135deg, var(--bg3), var(--bg2));
-  border: 1px solid rgba(0,232,123,0.15);
-  border-radius: 16px;
-  padding: 32px;
-  text-align: center;
-  margin-top: 40px;
-}
-.webx-badge {
-  display: inline-block;
-  background: var(--green-dim);
-  color: var(--green);
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-}
-.webx-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.webx-detail {
-  font-size: 14px;
-  color: var(--gray);
-  margin-bottom: 24px;
-}
-.countdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.countdown-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(0,232,123,0.08);
-  border: 1px solid rgba(0,232,123,0.2);
-  border-radius: 12px;
-  padding: 12px 16px;
-  min-width: 68px;
-}
-.countdown-num {
-  font-family: 'Inter', monospace;
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--green);
-  line-height: 1;
-}
-.countdown-label {
-  font-size: 11px;
-  color: var(--gray);
-  margin-top: 4px;
-  font-weight: 500;
-}
-.countdown-sep {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--gray2);
-  padding-bottom: 14px;
-}
+/* TELEGRAM BAR */
+.tg-bar{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:32px;}
+.tg-bar-left{display:flex;align-items:center;gap:16px;}
+.tg-icon{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0088cc,#00bbff);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.tg-bar a{color:var(--green);text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap;}
 
-/* ===== VOICE ===== */
-.voice-card {
-  background: var(--bg2);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  padding: 32px;
-}
-.voice-quote {
-  font-size: 17px;
-  line-height: 2;
-  margin-bottom: 24px;
-  color: var(--white);
-}
-.voice-author {
-  font-size: 14px;
-  color: var(--gray);
-}
+/* FLOAT CTA */
+.float-cta{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:100;background:var(--green);color:#000;text-decoration:none;font-weight:700;font-size:14px;padding:14px 28px;border-radius:50px;box-shadow:0 4px 24px rgba(0,232,123,0.3);transition:transform 0.2s;}
+.float-cta:hover{transform:translateX(-50%) scale(1.05);}
 
-/* ===== FINAL CTA ===== */
-.final-cta {
-  text-align: center;
-  padding: 80px 0 120px;
-}
-.final-title {
-  font-size: clamp(22px, 5vw, 32px);
-  font-weight: 900;
-  margin-bottom: 16px;
-}
-.final-desc {
-  font-size: 16px;
-  color: var(--gray);
-  margin-bottom: 40px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.cta-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-.cta-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--green);
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 16px 36px;
-  border-radius: 50px;
-  transition: transform 0.2s;
-}
-.cta-primary:hover { transform: scale(1.05); }
-.cta-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: var(--white);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 14px 32px;
-  border-radius: 50px;
-  transition: all 0.2s;
-}
-.cta-secondary:hover {
-  border-color: var(--green);
-  color: var(--green);
-}
-.cta-manual {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg3);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--white);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 16px 36px;
-  border-radius: 50px;
-  transition: all 0.2s;
-}
-.cta-manual:hover {
-  border-color: var(--green);
-  background: rgba(0,232,123,0.08);
-}
-.cta-register {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #e65c00, #f9a825);
-  color: #000;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 16px 36px;
-  border-radius: 50px;
-  transition: transform 0.2s;
-}
-.cta-register:hover { transform: scale(1.05); }
-.cta-note {
-  font-size: 13px;
-  color: var(--gray2);
-  margin-top: 16px;
-}
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;}
+.footer-logo{font-weight:900;font-size:18px;margin-bottom:4px;}
+.footer-tagline{font-size:13px;color:var(--gray2);margin-bottom:16px;}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:16px;}
+.footer-links a{color:var(--gray);text-decoration:none;font-size:20px;}
+.footer-legal{font-size:11px;color:var(--gray2);max-width:500px;margin:0 auto;line-height:1.6;}
+.footer-copy{font-size:11px;color:var(--gray2);margin-top:12px;}
 
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 40px 0;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-footer a {
-  color: var(--green);
-  text-decoration: none;
-}
-footer p {
-  font-size: 13px;
-  color: var(--gray2);
-  margin-top: 8px;
-}
-
-/* ===== STEPS ===== */
-.steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  background: var(--bg2);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  padding: 24px;
-}
-.step-num {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  background: var(--green);
-  color: #000;
-  font-weight: 900;
-  font-size: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.step-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.step-desc {
-  font-size: 14px;
-  color: var(--gray);
-  line-height: 1.7;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .section { padding: 60px 0; }
-  .trust-logos { gap: 16px; }
-  .trust-logo { padding: 12px 20px; font-size: 14px; }
-  .global-flow { flex-direction: column; }
-  .global-arrow { transform: rotate(90deg); }
-  .feature-item { flex-direction: column; }
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links a:not(.nav-cta){display:none;}
+  .cards-3,.log-cards{grid-template-columns:1fr;}
+  .two-col{grid-template-columns:1fr;gap:40px;}
+  .hero-visual{display:none;}
+  .tg-bar{flex-direction:column;text-align:center;}
+  .section{padding:60px 0;}
 }
 </style>
 </head>
 <body>
 
-<!-- FLOATING CTA -->
+<!-- FLOAT CTA -->
 <a href="https://t.me/+gbcygp7VNy8wYmNl" class="float-cta">📱 コミュニティで詳しく聞く</a>
 
-<!-- HEADER -->
-<header style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
-  <div style="font-weight:900;font-size:20px;letter-spacing:2px;">EN<span style="color:var(--green);">I</span>PAY</div>
-  <a href="https://www.enipay.net/" target="_blank" style="color:var(--green);text-decoration:none;font-size:14px;font-weight:600;border:1px solid #00e87b;border-radius:20px;padding:6px 16px;">🌐 公式サイト</a>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">E<span>N</span>IPAY</div>
+    <div class="nav-links">
+      <a href="#hajime">はじめに</a>
+      <a href="#kensho">検証内容</a>
+      <a href="#risk">リスク</a>
+      <a href="#log">ログを見る</a>
+      <a href="https://www.enipay.net/" target="_blank">公式サイト</a>
+      <a href="#log" class="nav-cta">検証ログを見る</a>
+    </div>
+  </div>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eyebrow">検証レポート公開中</div>
-    <h1 class="hero-title">
-      ENIPAYって<span>本当に</span><br>
-      大丈夫なのか。<br>
-      調べて、触って、記録してる。
-    </h1>
-    <p class="hero-sub">
-      香港拠点・Visa正規メンバーのブロックチェーン決済サービス。<br>
-      田舎の会社員が、忖度なしでリアルに検証しています。
-    </p>
-    <p style="font-size:14px;color:var(--gray);margin-bottom:32px;font-style:italic;">
-      A next-generation Web3 payment platform trusted by 13,000+ users worldwide.
-    </p>
-    <a href="#start" class="hero-cta">まず情報を見てみる →</a>
+    <div class="hero-content">
+      <div class="hero-badge">ENIPAY</div>
+      <h1>お金の未来は、<br>自分で<span class="accent">選べる</span>時代へ。</h1>
+      <p class="hero-desc">ENIPAYは、Web3時代の新しい決済インフラ。<br>透明性・低コスト・自由な送金を、すべての人に。</p>
+      <div class="hero-buttons">
+        <a href="#log" class="btn-primary">検証ログを見る →</a>
+        <a href="https://www.enipay.net/" target="_blank" class="btn-ghost">▶ ENIPAYを体験する</a>
+      </div>
+    </div>
+    <div class="hero-visual"><img src="hero.png" alt=""></div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- はじめに -->
+<section class="section" id="hajime" style="background:var(--bg2);">
+  <div class="container">
+    <p class="section-eyebrow">はじめに</p>
+    <h2 class="section-title">最初は、みんな同じだった</h2>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon">❓</div>
+        <div class="card-title">ENIPAYって<br>怪しいと思ってた</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">調べても<br>よく分からなかった</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <div class="card-title">情報がバラバラで<br>何を信じていいか<br>分からなかった</div>
+      </div>
+    </div>
+    <p class="section-sub" style="margin-top:32px;">でも、このままでいいのか？という思いが強くなり、すべてのきっかけでした。</p>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="container">
-    <p class="trust-label">パートナー・提携先</p>
-    <div class="marquee-wrap">
-      <div class="marquee-track">
-        <!-- Set 1 -->
-        <div class="trust-logo">
-          <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="2" y="33" font-family="Arial,sans-serif" font-weight="800" font-size="30" font-style="italic" fill="#1A1F71">V</text><text x="28" y="33" font-family="Arial,sans-serif" font-weight="800" font-size="30" font-style="italic" fill="#1A1F71">ISA</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#00D632" stroke-width="2.5"/><path d="M12 2a10 10 0 0 1 0 20" fill="#00D632"/></svg>
-          <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">Circle</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L5.5 7.5 12 14l6.5-6.5L12 1zM3 10l6.5 6.5L3 23l-3-6.5L3 10zM21 10l3 6.5L21 23l-6.5-6.5L21 10zM12 14l-6.5 6.5L12 27l6.5-6.5L12 14z" fill="#F0B90B" transform="scale(0.85) translate(2,0)"/></svg>
-          <svg viewBox="0 0 130 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#F0B90B">Binance</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">Bridge</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 130 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#1A1F71">Visa Direct</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 160 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#635BFF">Mastercard</text></svg>
-        </div>
-        <div class="trust-logo"><img src="https://webx-asia.com/pct/pub-398590491b8c46a59f7ae9740d1f68a8.r2.dev/sponsors/149/logo/01kv7nsbm0fexvwyttacwc20ck" alt="ENI" style="height:24px;object-fit:contain;"></div>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="trust-logo">
-          <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="2" y="33" font-family="Arial,sans-serif" font-weight="800" font-size="30" font-style="italic" fill="#1A1F71">V</text><text x="28" y="33" font-family="Arial,sans-serif" font-weight="800" font-size="30" font-style="italic" fill="#1A1F71">ISA</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#00D632" stroke-width="2.5"/><path d="M12 2a10 10 0 0 1 0 20" fill="#00D632"/></svg>
-          <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">Circle</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L5.5 7.5 12 14l6.5-6.5L12 1zM3 10l6.5 6.5L3 23l-3-6.5L3 10zM21 10l3 6.5L21 23l-6.5-6.5L21 10zM12 14l-6.5 6.5L12 27l6.5-6.5L12 14z" fill="#F0B90B" transform="scale(0.85) translate(2,0)"/></svg>
-          <svg viewBox="0 0 130 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#F0B90B">Binance</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="white">Bridge</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 130 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#1A1F71">Visa Direct</text></svg>
-        </div>
-        <div class="trust-logo">
-          <svg viewBox="0 0 160 30" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="30" fill="#635BFF">Mastercard</text></svg>
-        </div>
-        <div class="trust-logo"><img src="https://webx-asia.com/pct/pub-398590491b8c46a59f7ae9740d1f68a8.r2.dev/sponsors/149/logo/01kv7nsbm0fexvwyttacwc20ck" alt="ENI" style="height:24px;object-fit:contain;"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TRUST FACTS -->
+<!-- 違和感 -->
 <section class="section">
   <div class="container">
-    <p class="section-label">信頼性</p>
-    <h2 class="section-title">「怪しい」と思ったら、<br>まずファクトを確認する。</h2>
-    <p class="section-desc">公式サイトと公開情報から確認できる事実だけを並べます。</p>
-    <div class="facts-grid">
-      <div class="fact-card">
-        <div class="fact-icon">💳</div>
-        <div class="fact-title">Visa Principal Member</div>
-        <div class="fact-desc">Visaの<span class="fact-highlight">正規メンバー</span>。カードの発行・決済・清算に直接アクセスできる。</div>
+    <p class="section-eyebrow">違和感から始まった</p>
+    <h2 class="section-title">銀行やお金の仕組みに違和感があった</h2>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon">🏦</div>
+        <div class="card-title">銀行に預けたお金は<br>本当に自分のものなのか？</div>
       </div>
-      <div class="fact-card">
-        <div class="fact-icon">🌏</div>
-        <div class="fact-title">Visa Direct パイロット</div>
-        <div class="fact-desc">アジア太平洋で<span class="fact-highlight">唯一</span>のデジタル通貨パイロットに選ばれている。</div>
+      <div class="card">
+        <div class="card-icon">％</div>
+        <div class="card-title">手数料や送金コストが<br>高すぎる</div>
       </div>
-      <div class="fact-card">
-        <div class="fact-icon">📋</div>
-        <div class="fact-title">カナダMSB登録済み</div>
-        <div class="fact-desc">マネーサービスビジネスのライセンスを取得。規制下で運営。</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-icon">🏢</div>
-        <div class="fact-title">BKJ Connect Limited</div>
-        <div class="fact-desc">香港に法人を置く運営会社。所在地・代表が公開されている。</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-icon">👥</div>
-        <div class="fact-title">13,000人以上が利用</div>
-        <div class="fact-desc">世界中でユーザーが存在。日本だけのサービスではない。</div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-icon">🏆</div>
-        <div class="fact-title">WebX2026 公式スポンサー</div>
-        <div class="fact-desc">アジア最大級のWeb3カンファレンスに正式参加。CEO登壇予定。</div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <div class="card-title">情報の非対称性で<br>不利になるのはおかしい</div>
       </div>
     </div>
+    <p class="section-sub" style="margin-top:32px;">当たり前だと思っていた仕組みが、実はよく考えるとおかしかった。</p>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="section" style="background: var(--bg2);">
+<!-- 検証ステップ -->
+<section class="section" id="kensho" style="background:var(--bg2);">
   <div class="container">
-    <p class="section-label">できること</p>
-    <h2 class="section-title">実際に何ができるのか。</h2>
-    <p class="section-desc">ENIPAYで今使える機能を確認してみた。</p>
-
-    <!-- U Card Visual -->
-    <div style="text-align:center; margin-bottom:40px;">
-      <img src="https://www.enipay.net/assets/home/p5/Cardgruop.svg" alt="ENIPAY U Card" style="max-width:100%; height:auto; max-height:280px;">
+    <div class="two-col">
+      <div>
+        <p class="section-eyebrow" style="text-align:left;">実際に検証してみた</p>
+        <h2 class="section-title" style="text-align:left;">自分で調べて、触って、検証した</h2>
+        <div class="timeline" style="margin-top:40px;">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-step">STEP 1</div>
+            <div class="timeline-title">調べる</div>
+            <div class="timeline-desc">ENIPAYの仕組みやトークンエコノミクスを公式情報や海外資料から調査。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-step">STEP 2</div>
+            <div class="timeline-title">触ってみる</div>
+            <div class="timeline-desc">実際にウォレットを作成し、送金やスワップを体験。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-step">STEP 3</div>
+            <div class="timeline-title">理解する</div>
+            <div class="timeline-desc">仕組みやメリット・デメリットを自分なりに整理していく。</div>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--gray);margin-top:20px;">机上の知識ではなく、実体験から得たリアルな記録を残しています。</p>
+      </div>
+      <div>
+        <p class="section-eyebrow" style="text-align:left;">検証してわかったこと</p>
+        <h2 class="section-title" style="text-align:left;">ENIPAYの可能性と現実</h2>
+        <div style="margin:24px 0;border-radius:14px;overflow:hidden;"><img src="worldmap.png" alt="Global Network" style="width:100%;display:block;"></div>
+        <div style="margin-top:24px;">
+          <div class="poss-card">
+            <div class="poss-img">🔍</div>
+            <div>
+              <div class="poss-title">透明性が高い</div>
+              <div class="poss-desc">ブロックチェーン上の取引は公開されており、改ざんが難しい仕組みになっている。</div>
+            </div>
+          </div>
+          <div class="poss-card">
+            <div class="poss-img">🌍</div>
+            <div>
+              <div class="poss-title">国境を越えた価値移動が可能</div>
+              <div class="poss-desc">ENIPAYなら、世界中に低コストで送金や価値移動ができる。</div>
+            </div>
+          </div>
+          <div class="poss-card">
+            <div class="poss-img">💎</div>
+            <div>
+              <div class="poss-title">新しい金融の形</div>
+              <div class="poss-desc">DeFiやステーブルコインなど、新しい金融サービスが生まれている。</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--gray);margin-top:16px;">まだ発展途上の分野だけど、可能性は確実にあると感じた。</p>
+      </div>
     </div>
-
-    <div class="features-list">
-      <div class="feature-item">
-        <div class="feature-icon">💳</div>
-        <div>
-          <div class="feature-title">U Card（Visa / Mastercard）</div>
-          <div class="feature-desc">バーチャルカードと物理カードの両方を発行できる。ATMからの出金にも対応。世界中のVisa/Mastercard加盟店で使える。</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📱</div>
-        <div>
-          <div class="feature-title">QR決済（5カ国対応）</div>
-          <div class="feature-desc">スマホでQRコードを読み取るだけで決済できる。対応エリアは5カ国に拡大中。</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🤖</div>
-        <div>
-          <div class="feature-title">AIエージェント決済</div>
-          <div class="feature-desc">X402プロトコルに対応。AIが自律的に決済を行う次世代の仕組み。</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🔐</div>
-        <div>
-          <div class="feature-title">MPCウォレット</div>
-          <div class="feature-desc">秘密鍵を分散管理する方式で、セキュリティを確保しながら使いやすさも両立。</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📲</div>
-        <div>
-          <div class="feature-title">スマホアプリ対応</div>
-          <div class="feature-desc">iOS / Android両対応。スマホ1台で完結する。初期費用ゼロで始められる。</div>
-        </div>
-      </div>
-    </div>
-
-    <p style="text-align:center;font-size:13px;color:var(--gray);margin-top:32px;font-style:italic;">
-      Start with just your smartphone — no experience required. Free to join.
-    </p>
   </div>
 </section>
 
-<!-- QR CODE -->
-<section class="section">
+<!-- リスク -->
+<section class="section" id="risk">
+  <div class="container">
+    <p class="section-eyebrow">リスクも理解している</p>
+    <h2 class="section-title">注意すべきことも多い</h2>
+    <div style="max-width:640px;margin:0 auto;">
+      <div style="margin-bottom:24px;border-radius:14px;overflow:hidden;"><img src="blockchain.png" alt="Blockchain" style="width:100%;display:block;opacity:0.6;"></div>
+      <div class="hcards">
+        <div class="hcard">
+          <div class="hcard-icon red">⚠️</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">情報が少ない</div>
+            <div style="font-size:13px;color:var(--gray);">日本語の情報はまだまだ少なく、正しい情報を見極めるのが難しい。</div>
+          </div>
+        </div>
+        <div class="hcard">
+          <div class="hcard-icon orange">⚠️</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">自己責任が基本</div>
+            <div style="font-size:13px;color:var(--gray);">すべて自己管理。ミスすれば資産を失うリスクもある。</div>
+          </div>
+        </div>
+        <div class="hcard">
+          <div class="hcard-icon red">⚠️</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">詐欺やハッキングのリスク</div>
+            <div style="font-size:13px;color:var(--gray);">新しい分野だからこそ、悪意のあるプロジェクトも存在する。</div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:14px;color:var(--gray);margin-top:24px;">だからこそ、正しく知ることが何よりも重要だと思う。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 正しい情報 -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <p class="section-eyebrow">だから、自分はこうしている</p>
+    <h2 class="section-title">正しい情報を、自分の目で確かめる</h2>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-title">公式情報をベースに</div>
+        <div class="card-desc">信頼できる情報源から情報を収集する。</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📝</div>
+        <div class="card-title">実体験を記録する</div>
+        <div class="card-desc">やったこと、わかったことを正直に記録する。</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">他人に流されない</div>
+        <div class="card-desc">自分で判断し、納得した上で行動する。</div>
+      </div>
+    </div>
+    <p class="section-sub" style="margin-top:32px;">この記録が、同じように悩んでいる人の参考になれば嬉しい。</p>
+  </div>
+</section>
+
+<!-- 検証ログ -->
+<section class="section" id="log">
+  <div class="container">
+    <p class="section-eyebrow">気になる人は、自由に見てみてください</p>
+    <h2 class="section-title">すべての検証ログを公開しています</h2>
+    <div class="log-cards">
+      <div class="log-card">
+        <div class="log-card-icon">📂</div>
+        <div class="log-card-title">検証ログをすべて公開</div>
+        <div class="log-card-desc">実際にやったことをすべて記録しています。</div>
+      </div>
+      <div class="log-card">
+        <div class="log-card-icon">📊</div>
+        <div class="log-card-title">途中経過もリアルに</div>
+        <div class="log-card-desc">うまくいったことも失敗したことも正直に。</div>
+      </div>
+      <div class="log-card">
+        <div class="log-card-icon">🙌</div>
+        <div class="log-card-title">気になる人だけでOK</div>
+        <div class="log-card-desc">無理にすすめるものではありません。</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a href="https://note.com/y_k9388" target="_blank" class="btn-primary" style="margin-bottom:16px;">検証ログを見る →</a>
+    </div>
+
+    <!-- Telegram -->
+    <div class="tg-bar">
+      <div class="tg-bar-left">
+        <div class="tg-icon">✈️</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;">最新情報はTelegramで発信中</div>
+          <div style="font-size:13px;color:var(--gray);">検証の進捗や気づきをリアルタイムで共有しています。</div>
+        </div>
+      </div>
+      <a href="https://t.me/+gbcygp7VNy8wYmNl" target="_blank">Telegramを見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- QR + REGISTER -->
+<section class="section" style="background:var(--bg2);">
   <div class="container" style="text-align:center;">
-    <p class="section-label">QRコードで登録</p>
-    <h2 class="section-title">スマホでスキャンして<br>すぐに始められる。</h2>
-    <p class="section-desc">下のQRコードをスマホで読み取ると、招待コード付きの登録ページに飛びます。</p>
-    <div style="display:inline-block;background:white;padding:20px;border-radius:16px;margin-bottom:20px;">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://eni.wang/eni/%23/?share_code=QtIncfga" alt="ENIPAY QR Code" style="width:200px;height:200px;display:block;">
+    <h2 class="section-title">始めてみたい方へ</h2>
+    <div style="display:inline-block;background:white;padding:16px;border-radius:14px;margin:24px 0;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://eni.wang/eni/%23/?share_code=QtIncfga" alt="QR" style="width:180px;height:180px;display:block;">
     </div>
     <p style="font-size:14px;color:var(--gray);">招待コード：<span style="color:var(--green);font-weight:700;">QtIncfga</span></p>
-    <p style="font-size:13px;color:var(--gray);margin-top:8px;font-style:italic;">Scan to register — free, instant, cancel anytime.</p>
-  </div>
-</section>
-
-<!-- GLOBAL EXPANSION -->
-<section class="section">
-  <div class="container">
-    <p class="section-label">グローバル展開</p>
-    <h2 class="section-title">日本だけじゃない。<br>アジアに広がってきてる。</h2>
-    <div class="global-flow">
-      <div class="global-node">
-        <div class="global-flag">🇭🇰</div>
-        <div class="global-country">香港</div>
-        <div class="global-status">本社</div>
-      </div>
-      <div class="global-arrow">→</div>
-      <div class="global-node">
-        <div class="global-flag">🇯🇵</div>
-        <div class="global-country">日本</div>
-        <div class="global-status">展開済み</div>
-      </div>
-      <div class="global-arrow">→</div>
-      <div class="global-node">
-        <div class="global-flag">🇰🇷</div>
-        <div class="global-country">韓国</div>
-        <div class="global-status new">NEW</div>
-      </div>
+    <p style="font-size:13px;color:var(--gray2);margin-top:4px;font-style:italic;">Scan to register — free, instant, cancel anytime.</p>
+    <div style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <a href="https://t.me/+gbcygp7VNy8wYmNl" class="btn-primary">📱 Telegramで情報を受け取る</a>
+      <a href="#" onclick="document.getElementById('manual-page').style.display='block';return false;" style="background:var(--card);border:1px solid var(--border);color:var(--white);font-weight:700;font-size:15px;padding:14px 28px;border-radius:12px;text-decoration:none;">📋 登録マニュアルはこちら</a>
+      <a href="https://eni.wang/eni/#/?share_code=QtIncfga" target="_blank" style="background:linear-gradient(135deg,var(--green2),var(--green));color:#000;font-weight:700;font-size:15px;padding:14px 28px;border-radius:12px;text-decoration:none;">🚀 ENIPAYに無料登録する</a>
+      <p style="font-size:12px;color:var(--gray2);">登録は1分・初期費用ゼロ・いつでも解除できます</p>
     </div>
-    <div class="global-note">
-      <p>
-        最近、仲間が韓国で勉強会を開いた。<strong>30人以上が集まったらしい。</strong><br>
-        会社が主催したイベントじゃない。使ってる人が自分で動いて、現地で人を集めて開催したもの。<br>
-        <strong>ユーザーが自発的に広めてる</strong>ってことは、中身に価値があるってことだと思う。
-      </p>
-    </div>
-
-    <!-- WebX2026 -->
-    <div class="webx-banner">
-      <div class="webx-badge">🏆 公式スポンサー</div>
-      <div class="webx-title">WebX2026 に ENI財団 CEO登壇</div>
-      <div class="webx-detail">2026年7月13日（月）11:35〜 ｜ アジア最大級のWeb3カンファレンス</div>
-      <a href="https://webx-asia.com/ja/ticket/" target="_blank"><img src="https://webx-asia.com/img/cd/ja/20260702.gif" alt="WebX2026 Countdown" style="max-width:100%;border-radius:12px;"></a>
-      <div id="countdown" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;">
-        <div style="background:rgba(0,232,123,0.08);border:1px solid rgba(0,232,123,0.2);border-radius:12px;padding:12px 16px;min-width:68px;text-align:center;"><span id="cd-days" style="font-family:Inter,monospace;font-size:32px;font-weight:900;color:#00e87b;line-height:1;">--</span><br><span style="font-size:11px;color:#8a8a9e;">日</span></div>
-        <span style="font-size:28px;color:#6b6b80;padding-bottom:14px;">:</span>
-        <div style="background:rgba(0,232,123,0.08);border:1px solid rgba(0,232,123,0.2);border-radius:12px;padding:12px 16px;min-width:68px;text-align:center;"><span id="cd-hours" style="font-family:Inter,monospace;font-size:32px;font-weight:900;color:#00e87b;line-height:1;">--</span><br><span style="font-size:11px;color:#8a8a9e;">時間</span></div>
-        <span style="font-size:28px;color:#6b6b80;padding-bottom:14px;">:</span>
-        <div style="background:rgba(0,232,123,0.08);border:1px solid rgba(0,232,123,0.2);border-radius:12px;padding:12px 16px;min-width:68px;text-align:center;"><span id="cd-min" style="font-family:Inter,monospace;font-size:32px;font-weight:900;color:#00e87b;line-height:1;">--</span><br><span style="font-size:11px;color:#8a8a9e;">分</span></div>
-        <span style="font-size:28px;color:#6b6b80;padding-bottom:14px;">:</span>
-        <div style="background:rgba(0,232,123,0.08);border:1px solid rgba(0,232,123,0.2);border-radius:12px;padding:12px 16px;min-width:68px;text-align:center;"><span id="cd-sec" style="font-family:Inter,monospace;font-size:32px;font-weight:900;color:#00e87b;line-height:1;">--</span><br><span style="font-size:11px;color:#8a8a9e;">秒</span></div>
-      </div>
-      <script>
-      (function(){var t=new Date('2026-07-13T11:35:00+09:00').getTime();function u(){var n=Date.now(),d=t-n;if(d<=0){document.getElementById('countdown').innerHTML='<div style="color:#00e87b;font-size:20px;font-weight:700;">LIVE NOW</div>';return;}document.getElementById('cd-days').textContent=String(Math.floor(d/864e5)).padStart(2,'0');document.getElementById('cd-hours').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');document.getElementById('cd-min').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');document.getElementById('cd-sec').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');}u();setInterval(u,1000);})();
-      </script>
-    </div>
-  </div>
-</section>
-
-<!-- VOICE -->
-<section class="section" style="background: var(--bg2);">
-  <div class="container">
-    <p class="section-label">検証者の記録</p>
-    <h2 class="section-title">正直に書く。<br>それだけ。</h2>
-    <div class="voice-card">
-      <div class="voice-quote">
-        最初は「また怪しいやつか」と思った。<br><br>
-        でも調べてみたら、Visaの正規メンバーで、香港に法人があって、カナダでライセンスも取ってる。<br><br>
-        日本だけじゃなく韓国にも広がってきてる。<br><br>
-        全部がうまくいくかは正直わからない。<br>
-        でも「何もしないリスク」の方が怖いと思った。<br><br>
-        だから自分で触って、記録して、情報を出してる。<br>
-        うまくいった話も、失敗した話も、そのまま。
-      </div>
-      <div class="voice-author">— 田舎の会社員｜Web3検証中</div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta" id="start">
-  <div class="container">
-    <h2 class="final-title">まず、知るところから。</h2>
-    <p class="final-desc">
-      難しいことは後でいい。<br>
-      まずは情報を受け取るだけでOK。
-    </p>
-    <div class="cta-buttons">
-      <a href="https://t.me/+gbcygp7VNy8wYmNl" class="cta-primary">📱 Telegramで情報を受け取る</a>
-      <p style="font-size:12px;color:var(--gray);font-style:italic;">Join our Telegram community for real-time updates.</p>
-      <a href="#" class="cta-manual" onclick="document.getElementById('manual-page').style.display='block';return false;">📋 登録マニュアルはこちら</a>
-      <p style="font-size:12px;color:var(--gray);font-style:italic;">Step-by-step guide to get started easily.</p>
-      <a href="https://eni.wang/eni/#/?share_code=QtIncfga" class="cta-register" target="_blank">🚀 ENIPAYに無料登録する</a>
-      <p style="font-size:12px;color:var(--gray);font-style:italic;">Free to join. Cancel anytime.</p>
-    </div>
-    <p class="cta-note">登録は1分・初期費用ゼロ・いつでも解除できます</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <div style="margin-bottom:16px;">
-      <a href="https://www.enipay.net/" target="_blank" style="color:var(--green);text-decoration:none;font-size:16px;font-weight:700;">🌐 www.enipay.net</a>
-      <p style="font-size:12px;color:var(--gray2);margin-top:4px;">ENIPAY Official Website</p>
+    <div class="footer-logo">E<span style="color:var(--green);">N</span>IPAY</div>
+    <div class="footer-tagline">Web3時代の新しい決済インフラ</div>
+    <div class="footer-links">
+      <a href="https://twitter.com/kenken0494" target="_blank">𝕏</a>
+      <a href="https://note.com/y_k9388" target="_blank">📝</a>
+      <a href="https://t.me/+gbcygp7VNy8wYmNl" target="_blank">✈️</a>
     </div>
-    <div style="display:flex;justify-content:center;gap:24px;margin-bottom:16px;">
-      <a href="https://www.enipay.net/" target="_blank" style="color:var(--gray);text-decoration:none;font-size:13px;">公式サイト</a>
-      <a href="https://t.me/+gbcygp7VNy8wYmNl" target="_blank" style="color:var(--gray);text-decoration:none;font-size:13px;">Telegram</a>
-      <a href="https://eni.wang/eni/#/?share_code=QtIncfga" target="_blank" style="color:var(--gray);text-decoration:none;font-size:13px;">無料登録</a>
+    <div class="footer-legal">
+      ※ 本サイトの情報は情報共有を目的としたものであり、投資や金融商品の勧誘を目的としたものではありません。<br>
+      ※ 最終的な判断はご自身の責任で行ってください。
     </div>
-    <p>© 2026 検証記録｜田舎からWeb3を調べてる人のページ</p>
-    <p style="font-size:11px;color:var(--gray2);margin-top:4px;">Operated by BKJ Connect Limited (Hong Kong)</p>
+    <div class="footer-copy">© 2026 ENIPAY LAB. All Rights Reserved.</div>
   </div>
 </footer>
 
